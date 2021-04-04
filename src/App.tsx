@@ -90,8 +90,6 @@ const App = () => {
         break;
 
       default:
-        console.log('Potatos');
-
         throw Error("Oops handleGameEvent didn't know what to do");
     }
   };
