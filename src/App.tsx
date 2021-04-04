@@ -126,7 +126,6 @@ const App = () => {
     if (notification.isOpen) {
       const timeout = setTimeout(() => {
         const newNotification = { ...notification, isOpen: false };
-        console.log(notification === newNotification);
         setNotification(newNotification);
       }, NOTIFICATION_HIDE_DELAY);
       return () => clearTimeout(timeout);
@@ -140,7 +139,7 @@ const App = () => {
         <p>{score}</p>
       </div>
       <div
-        className={`message ${notification.isOpen ? 'visible' : ''}
+        className={`message ${notification.isOpen && 'visible'}
           ${notification.type === NotificationType.danger ? 'message-danger' : ''}
           ${notification.type === NotificationType.success ? 'message-success' : ''}
           `}

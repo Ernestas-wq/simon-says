@@ -213,3 +213,32 @@ h1 {
     font-size: 35px;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .game {
+    width: 375px;
+    height: 375px;
+  }
+  .game-btn {
+    width: 125px;
+    height: 125px;
+  }
+  .color {
+    height: 130px;
+    width: 140px;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .game {
+    width: 420px;
+    height: 420px;
+  }
+  .game-btn {
+    width: 150px;
+    height: 150px;
+  }
+  .color {
+    height: 160px;
+    width: 160px;
+  }
+}
