@@ -137,6 +137,7 @@ const App = () => {
 
   return (
     <div className="container">
+      <h1>how long a sequence can you guess?</h1>
       <div className="score">
         <p>{score}</p>
       </div>
