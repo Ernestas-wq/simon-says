@@ -46,3 +46,8 @@ export const animateGuess = (guessIdx: number, delay: number) => {
     colorNode?.classList.remove(`color-${guessIdx}-active`);
   }, delay);
 };
+
+export const getLocalStorage = () => {
+  let bestScore = localStorage.getItem('best-score');
+  return bestScore ? +JSON.parse(bestScore) : 0;
+};

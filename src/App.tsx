@@ -4,6 +4,7 @@ import {
   areArraysEqual,
   animateSequence,
   animateGuess,
+  getLocalStorage,
 } from './utils';
 import {
   SEQUENCE_INTERVAL,
@@ -18,6 +19,7 @@ const colors = [1, 2, 3, 4];
 
 const App = () => {
   const [score, setScore] = useState<number>(0);
+  const [bestScore, setBestScore] = useState<number>(getLocalStorage());
   const [isGameLive, setIsGameLive] = useState<boolean>(false);
   const [currentSequence, setCurrentSequence] = useState<number[]>([]);
   const [isUserGuessing, setIsUserGuessing] = useState<boolean>(false);
@@ -46,6 +48,22 @@ const App = () => {
     setUserSequence([]);
   };
 
+  const handleGameOver = (): void => {
+    if (score > bestScore) {
+      setBestScore(score);
+      handleNotification(
+        'Congratulations on new highscore!',
+        NotificationType.success,
+        NOTIFICATION_HIDE_DELAY
+      );
+    }
+    setScore(0);
+    setIsGameLive(false);
+    setButtonState(ButtonState.start);
+    resetSequences();
+    handleNotification('Oops! Looks like you messed up', NotificationType.danger, 0);
+  };
+
   const handleSubmitSequence = (seq1: number[], seq2: number[]) => {
     if (seq1.length !== seq2.length) return;
     if (areArraysEqual(seq1, seq2)) {
@@ -58,15 +76,7 @@ const App = () => {
         0
       );
     } else {
-      setScore(0);
-      setIsGameLive(false);
-      setButtonState(ButtonState.start);
-      resetSequences();
-      handleNotification(
-        'Oops! Looks like you messed up',
-        NotificationType.danger,
-        0
-      );
+      handleGameOver();
     }
   };
 
@@ -78,7 +88,7 @@ const App = () => {
         setIsGameLive(true);
         setTimeout(() => {
           fetchNextSequence();
-        }, 2000);
+        }, NOTIFICATION_HIDE_DELAY);
         break;
 
       case ButtonState.submit:
@@ -132,9 +142,15 @@ const App = () => {
     }
   }, [notification]);
 
+  useEffect(() => {
+    localStorage.setItem('best-score', JSON.stringify(bestScore));
+  }, [bestScore]);
+
   return (
     <div className="container">
-      <h1>how long a sequence can you guess?</h1>
+      <h1>
+        how long a sequence can you guess? Current best: <span>{bestScore}</span>
+      </h1>
       <div className="score">
         <p>{score}</p>
       </div>
