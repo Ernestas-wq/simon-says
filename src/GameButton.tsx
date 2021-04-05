@@ -27,7 +27,7 @@ const GameButton: React.FC<Props> = ({ state, handleGameEvent, isUserGuessing })
   return (
     <button
       onClick={handleGameEvent}
-      className={`game-btn ${isUserGuessing && 'game-btn-disabled'}`}
+      className={`game-btn ${isUserGuessing ? 'game-btn-disabled' : ''}`}
     >
       {buttonText}
     </button>
