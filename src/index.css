@@ -63,7 +63,7 @@ h1 span {
   align-items: center;
   position: relative;
   width: 600px;
-  height: 600px;
+  min-height: 600px;
   background: var(--dark-main);
   border-radius: 50%;
 }
